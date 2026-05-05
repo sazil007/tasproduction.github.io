@@ -1,0 +1,5 @@
+.services-page {
+  padding: 120px 20px 80px;
+  background: var(--white);
+  min-height: 100vh;
+}
