@@ -4,709 +4,30 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>TAS Production House - Professional Sound Management</title>
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            line-height: 1.6;
-            color: #2c2c2c;
-            background-color: #fafafa;
-        }
-
-        /* Color Variables */
-        :root {
-            --primary-dark: #1a1a2e;
-            --primary: #16213e;
-            --secondary: #0f3460;
-            --accent: #e94560;
-            --accent-light: #ff6b6b;
-            --light-bg: #f8f9fa;
-            --white: #ffffff;
-            --gray: #6c757d;
-            --dark: #212529;
-            --success: #28a745;
-            --error: #dc3545;
-        }
-
-        /* Header */
-        header {
-            background: var(--primary-dark);
-            color: var(--white);
-            padding: 1rem 2rem;
-            position: fixed;
-            width: 100%;
-            top: 0;
-            z-index: 1000;
-            box-shadow: 0 2px 20px rgba(0,0,0,0.1);
-        }
-
-        nav {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-
-        .logo {
-            font-size: 1.5rem;
-            font-weight: bold;
-            letter-spacing: 1px;
-            cursor: pointer;
-        }
-
-        .logo span {
-            color: var(--accent);
-        }
-
-        .nav-links {
-            display: flex;
-            list-style: none;
-            gap: 2rem;
-            align-items: center;
-        }
-
-        .nav-links a {
-            color: var(--white);
-            text-decoration: none;
-            transition: color 0.3s;
-            font-weight: 500;
-        }
-
-        .nav-links a:hover {
-            color: var(--accent);
-        }
-
-        /* Auth Buttons */
-        .auth-buttons {
-            display: flex;
-            gap: 1rem;
-        }
-
-        .btn-login, .btn-signup, .btn-logout {
-            padding: 8px 20px;
-            border-radius: 25px;
-            border: none;
-            cursor: pointer;
-            font-weight: 600;
-            transition: all 0.3s;
-        }
-
-        .btn-login {
-            background: transparent;
-            color: var(--white);
-            border: 2px solid var(--accent);
-        }
-
-        .btn-login:hover {
-            background: var(--accent);
-            color: var(--white);
-        }
-
-        .btn-signup {
-            background: var(--accent);
-            color: var(--white);
-        }
-
-        .btn-signup:hover {
-            background: #d63e56;
-            transform: translateY(-2px);
-        }
-
-        .btn-logout {
-            background: var(--error);
-            color: var(--white);
-        }
-
-        .btn-logout:hover {
-            background: #c82333;
-        }
-
-        .user-info {
-            color: var(--white);
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-        }
-
-        .user-avatar {
-            width: 35px;
-            height: 35px;
-            background: var(--accent);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: bold;
-        }
-
-        /* Modal Styles */
-        .modal {
-            display: none;
-            position: fixed;
-            z-index: 2000;
-            left: 0;
-            top: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0,0,0,0.7);
-            animation: fadeIn 0.3s;
-        }
-
-        .modal-content {
-            background-color: var(--white);
-            margin: 5% auto;
-            padding: 0;
-            border-radius: 20px;
-            width: 90%;
-            max-width: 450px;
-            position: relative;
-            animation: slideIn 0.3s;
-            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
-        }
-
-        .modal-header {
-            background: linear-gradient(135deg, var(--primary-dark) 0%, var(--secondary) 100%);
-            color: var(--white);
-            padding: 1.5rem;
-            border-radius: 20px 20px 0 0;
-        }
-
-        .modal-header h2 {
-            margin-bottom: 0.5rem;
-        }
-
-        .modal-body {
-            padding: 2rem;
-        }
-
-        .close {
-            position: absolute;
-            right: 20px;
-            top: 15px;
-            font-size: 28px;
-            font-weight: bold;
-            color: var(--white);
-            cursor: pointer;
-            transition: color 0.3s;
-        }
-
-        .close:hover {
-            color: var(--accent);
-        }
-
-        .form-group {
-            margin-bottom: 1.5rem;
-        }
-
-        .form-group label {
-            display: block;
-            margin-bottom: 0.5rem;
-            color: var(--primary-dark);
-            font-weight: 600;
-        }
-
-        .form-group input {
-            width: 100%;
-            padding: 12px;
-            border: 2px solid #e0e0e0;
-            border-radius: 8px;
-            font-size: 1rem;
-            transition: border-color 0.3s;
-        }
-
-        .form-group input:focus {
-            outline: none;
-            border-color: var(--accent);
-        }
-
-        .btn-submit {
-            width: 100%;
-            padding: 12px;
-            background: var(--accent);
-            color: var(--white);
-            border: none;
-            border-radius: 8px;
-            font-size: 1rem;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s;
-        }
-
-        .btn-submit:hover {
-            background: #d63e56;
-            transform: translateY(-2px);
-        }
-
-        .switch-auth {
-            text-align: center;
-            margin-top: 1rem;
-        }
-
-        .switch-auth a {
-            color: var(--accent);
-            cursor: pointer;
-            text-decoration: none;
-        }
-
-        .switch-auth a:hover {
-            text-decoration: underline;
-        }
-
-        .error-message {
-            background: #f8d7da;
-            color: var(--error);
-            padding: 10px;
-            border-radius: 8px;
-            margin-bottom: 1rem;
-            display: none;
-        }
-
-        .success-message {
-            background: #d4edda;
-            color: var(--success);
-            padding: 10px;
-            border-radius: 8px;
-            margin-bottom: 1rem;
-            display: none;
-        }
-
-        /* Hero Section */
-        .hero {
-            background: linear-gradient(135deg, var(--primary-dark) 0%, var(--secondary) 50%, var(--primary) 100%);
-            color: var(--white);
-            text-align: center;
-            padding: 180px 20px 120px;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .hero::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320"><path fill="rgba(255,255,255,0.1)" fill-opacity="1" d="M0,96L48,112C96,128,192,160,288,160C384,160,480,128,576,122.7C672,117,768,139,864,154.7C960,171,1056,181,1152,165.3C1248,149,1344,107,1392,85.3L1440,64L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"></path></svg>') repeat-x bottom;
-            background-size: cover;
-            opacity: 0.3;
-        }
-
-        .hero h1 {
-            font-size: 3.5rem;
-            margin-bottom: 1rem;
-            animation: fadeInUp 1s ease;
-            position: relative;
-        }
-
-        .hero p {
-            font-size: 1.3rem;
-            margin-bottom: 2rem;
-            animation: fadeInUp 1s ease 0.2s;
-            opacity: 0;
-            animation-fill-mode: forwards;
-            position: relative;
-        }
-
-        .btn {
-            display: inline-block;
-            padding: 14px 35px;
-            background: var(--accent);
-            color: var(--white);
-            text-decoration: none;
-            border-radius: 30px;
-            font-weight: bold;
-            transition: all 0.3s;
-            animation: fadeInUp 1s ease 0.4s;
-            opacity: 0;
-            animation-fill-mode: forwards;
-            border: none;
-            cursor: pointer;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 8px 25px rgba(233, 69, 96, 0.3);
-            background: #d63e56;
-        }
-
-        /* Services Section */
-        .services {
-            padding: 80px 20px;
-            background: var(--white);
-        }
-
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-
-        .section-title {
-            text-align: center;
-            font-size: 2.5rem;
-            margin-bottom: 1rem;
-            color: var(--primary-dark);
-            position: relative;
-            display: inline-block;
-            width: 100%;
-        }
-
-        .section-title::after {
-            content: '';
-            display: block;
-            width: 60px;
-            height: 3px;
-            background: var(--accent);
-            margin: 15px auto 0;
-        }
-
-        .section-subtitle {
-            text-align: center;
-            color: var(--gray);
-            margin-bottom: 3rem;
-            font-size: 1.1rem;
-        }
-
-        .services-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-            gap: 2rem;
-        }
-
-        .service-card {
-            background: var(--white);
-            padding: 2rem;
-            border-radius: 15px;
-            text-align: center;
-            transition: all 0.3s;
-            cursor: pointer;
-            box-shadow: 0 5px 20px rgba(0,0,0,0.08);
-            border: 1px solid #eee;
-        }
-
-        .service-card:hover {
-            transform: translateY(-8px);
-            box-shadow: 0 15px 40px rgba(0,0,0,0.12);
-            border-color: var(--accent);
-        }
-
-        .service-icon {
-            font-size: 3rem;
-            margin-bottom: 1rem;
-        }
-
-        .service-card h3 {
-            margin-bottom: 1rem;
-            color: var(--primary);
-            font-size: 1.3rem;
-        }
-
-        .service-card p {
-            color: var(--gray);
-            line-height: 1.6;
-        }
-
-        /* About Section */
-        .about {
-            padding: 80px 20px;
-            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
-        }
-
-        .about-content {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 3rem;
-            align-items: center;
-        }
-
-        .about-text h2 {
-            font-size: 2rem;
-            margin-bottom: 1.5rem;
-            color: var(--primary-dark);
-        }
-
-        .about-text p {
-            margin-bottom: 1rem;
-            color: var(--gray);
-            line-height: 1.8;
-        }
-
-        .stats {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 2rem;
-            margin-top: 2rem;
-        }
-
-        .stat {
-            text-align: center;
-            padding: 1rem;
-            background: var(--white);
-            border-radius: 10px;
-            transition: transform 0.3s;
-        }
-
-        .stat:hover {
-            transform: translateY(-3px);
-        }
-
-        .stat-number {
-            font-size: 2rem;
-            font-weight: bold;
-            color: var(--accent);
-        }
-
-        .about-image {
-            position: relative;
-            border-radius: 15px;
-            overflow: hidden;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-        }
-
-        .about-image img {
-            width: 100%;
-            height: auto;
-            display: block;
-        }
-
-        /* Portfolio Section */
-        .portfolio {
-            padding: 80px 20px;
-            background: var(--white);
-        }
-
-        .portfolio-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 2rem;
-        }
-
-        .portfolio-item {
-            background: var(--white);
-            border-radius: 15px;
-            overflow: hidden;
-            transition: all 0.3s;
-            box-shadow: 0 5px 20px rgba(0,0,0,0.08);
-        }
-
-        .portfolio-item:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 15px 40px rgba(0,0,0,0.12);
-        }
-
-        .portfolio-image {
-            height: 250px;
-            overflow: hidden;
-            position: relative;
-        }
-
-        .portfolio-image img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            transition: transform 0.3s;
-        }
-
-        .portfolio-item:hover .portfolio-image img {
-            transform: scale(1.05);
-        }
-
-        .portfolio-info {
-            padding: 1.5rem;
-        }
-
-        .portfolio-info h3 {
-            margin-bottom: 0.5rem;
-            color: var(--primary-dark);
-        }
-
-        .portfolio-category {
-            color: var(--accent);
-            font-size: 0.9rem;
-            margin-bottom: 1rem;
-            font-weight: 600;
-        }
-
-        /* Contact Section */
-        .contact {
-            padding: 80px 20px;
-            background: linear-gradient(135deg, var(--primary-dark) 0%, var(--secondary) 100%);
-            color: var(--white);
-        }
-
-        .contact .section-title {
-            color: var(--white);
-        }
-
-        .contact .section-title::after {
-            background: var(--accent);
-        }
-
-        .contact .section-subtitle {
-            color: rgba(255,255,255,0.9);
-        }
-
-        .contact-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 3rem;
-        }
-
-        .contact-info {
-            display: flex;
-            flex-direction: column;
-            gap: 1.5rem;
-        }
-
-        .contact-item {
-            display: flex;
-            align-items: center;
-            gap: 1rem;
-            padding: 1rem;
-            background: rgba(255,255,255,0.1);
-            border-radius: 10px;
-            backdrop-filter: blur(10px);
-        }
-
-        .contact-icon {
-            width: 50px;
-            height: 50px;
-            background: var(--accent);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: var(--white);
-            font-size: 1.5rem;
-        }
-
-        .business-hours {
-            margin-top: 2rem;
-            padding-top: 2rem;
-            border-top: 1px solid rgba(255,255,255,0.2);
-        }
-
-        .business-hours h3 {
-            margin-bottom: 1rem;
-        }
-
-        .contact-form input,
-        .contact-form textarea {
-            width: 100%;
-            padding: 12px;
-            margin-bottom: 1rem;
-            border: none;
-            border-radius: 8px;
-            font-family: inherit;
-            background: rgba(255,255,255,0.9);
-        }
-
-        .contact-form input:focus,
-        .contact-form textarea:focus {
-            outline: none;
-            background: var(--white);
-        }
-
-        /* Footer */
-        footer {
-            background: var(--primary-dark);
-            color: var(--white);
-            text-align: center;
-            padding: 2rem;
-        }
-
-        /* Animations */
-        @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(30px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        @keyframes fadeIn {
-            from {
-                opacity: 0;
-            }
-            to {
-                opacity: 1;
-            }
-        }
-
-        @keyframes slideIn {
-            from {
-                transform: translateY(-50px);
-                opacity: 0;
-            }
-            to {
-                transform: translateY(0);
-                opacity: 1;
-            }
-        }
-
-        /* Protected Content */
-        .protected-content {
-            display: none;
-        }
-
-        .protected-content.visible {
-            display: block;
-        }
-
-        /* Responsive */
-        @media (max-width: 768px) {
-            .nav-links {
-                display: none;
-            }
-            
-            .hero h1 {
-                font-size: 2rem;
-            }
-            
-            .hero p {
-                font-size: 1rem;
-            }
-            
-            .about-content,
-            .contact-grid {
-                grid-template-columns: 1fr;
-            }
-            
-            .services-grid {
-                grid-template-columns: 1fr;
-            }
-            
-            .section-title {
-                font-size: 2rem;
-            }
-        }
-    </style>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <header>
         <nav>
             <div class="logo" onclick="scrollToSection('home')">TAS <span>Production</span> House</div>
+            <div class="mobile-menu-btn" onclick="toggleMobileMenu()">☰</div>
             <ul class="nav-links">
                 <li><a href="#" onclick="scrollToSection('home')">Home</a></li>
-                <li><a href="#" onclick="scrollToSection('services')">Services</a></li>
-                <li><a href="#" onclick="scrollToSection('about')">About</a></li>
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" onclick="return false">Services</a>
+                    <div class="dropdown-menu">
+                        <div class="dropdown-header">Our Services</div>
+                        <a href="#" onclick="scrollToSection('services')">🎵 All Services</a>
+                        <a href="#" onclick="scrollToService('music-production')">🎵 Music Production</a>
+                        <a href="#" onclick="scrollToService('recording-studio')">🎙️ Recording Studio</a>
+                        <a href="#" onclick="scrollToService('podcast-production')">🎧 Podcast Production</a>
+                    </div>
+                </li>
                 <li><a href="#" onclick="scrollToSection('portfolio')">Portfolio</a></li>
+                <li><a href="#" onclick="scrollToSection('about')">About</a></li>
                 <li><a href="#" onclick="scrollToSection('contact')">Contact</a></li>
             </ul>
-            <div id="authSection">
-                <!-- Dynamic auth buttons will be inserted here -->
-            </div>
+            <div id="authSection"></div>
         </nav>
     </header>
 
@@ -775,167 +96,105 @@
         </div>
     </div>
 
+    <!-- Hero Section -->
     <section id="home" class="hero">
         <h1>Where Sound Meets Perfection</h1>
         <p>Professional Sound Management · World-class Audio Production</p>
         <button class="btn" onclick="scrollToSection('contact')">Get Started</button>
     </section>
 
+    <!-- Services Section -->
     <section id="services" class="services">
         <div class="container">
             <h2 class="section-title">Our Services</h2>
             <p class="section-subtitle">Comprehensive sound management solutions tailored to your needs</p>
             <div class="services-grid">
-                <div class="service-card">
+                <div id="music-production" class="service-card">
                     <div class="service-icon">🎵</div>
                     <h3>Music Production</h3>
-                    <p>Full-scale music production services from composition to final mix. We work with artists across all genres to create professional-grade recordings.</p>
+                    <p>Full-scale music production services from composition to final mix. Professional-grade recordings across all genres.</p>
                 </div>
-                <div class="service-card">
+                <div id="recording-studio" class="service-card">
                     <div class="service-icon">🎙️</div>
                     <h3>Recording Studio</h3>
-                    <p>State-of-the-art recording facilities with industry-leading equipment. Our acoustically treated rooms ensure pristine audio capture.</p>
+                    <p>State-of-the-art recording facilities with industry-leading equipment and acoustically treated rooms.</p>
                 </div>
-                <div class="service-card">
+                <div id="podcast-production" class="service-card">
                     <div class="service-icon">🎧</div>
                     <h3>Podcast Production</h3>
-                    <p>Complete podcast production services including recording, editing, mixing, and mastering to make your voice heard clearly.</p>
-                </div>
-                <div class="service-card">
-                    <div class="service-icon">🎚️</div>
-                    <h3>Mixing & Mastering</h3>
-                    <p>Professional mixing and mastering services that bring clarity, depth, and polish to your audio projects.</p>
-                </div>
-                <div class="service-card">
-                    <div class="service-icon">🎮</div>
-                    <h3>Sound Design</h3>
-                    <p>Creative sound design for games, films, and multimedia projects. We craft unique sonic experiences that captivate audiences.</p>
-                </div>
-                <div class="service-card">
-                    <div class="service-icon">🎬</div>
-                    <h3>Post Production</h3>
-                    <p>Comprehensive post-production audio services including dialogue editing, ADR, foley, and final mixing for film and video.</p>
+                    <p>Complete podcast production services including recording, editing, mixing, and mastering.</p>
                 </div>
             </div>
         </div>
     </section>
 
+    <!-- About Section -->
     <section id="about" class="about">
         <div class="container">
             <div class="about-content">
                 <div class="about-text">
                     <h2>About TAS Production House</h2>
-                    <p>Founded in 2009, TAS Production House has been at the forefront of audio innovation, delivering exceptional sound management solutions to clients worldwide.</p>
-                    <p>Our team of experienced audio engineers, producers, and sound designers are passionate about creating sonic experiences that resonate. With state-of-the-art equipment and decades of combined expertise, we transform your audio vision into reality.</p>
-                    <p>From independent artists to major labels, from podcasters to filmmakers, we've helped countless clients achieve their audio goals. Our commitment to quality, creativity, and client satisfaction has made us a trusted name in the industry.</p>
+                    <p>Founded in 2022, TAS Production House has been at the forefront of audio innovation, delivering exceptional sound management solutions to clients worldwide.</p>
+                    <p>Our team of experienced audio engineers, producers, and sound designers are passionate about creating sonic experiences that resonate.</p>
                     <div class="stats">
-                        <div class="stat">
-                            <div class="stat-number">15+</div>
-                            <div>Years Experience</div>
-                        </div>
-                        <div class="stat">
-                            <div class="stat-number">500+</div>
-                            <div>Happy Clients</div>
-                        </div>
-                        <div class="stat">
-                            <div class="stat-number">1000+</div>
-                            <div>Projects Completed</div>
-                        </div>
-                        <div class="stat">
-                            <div class="stat-number">98%</div>
-                            <div>Client Satisfaction</div>
-                        </div>
+                        <div class="stat"><div class="stat-number">15+</div><div>Years Experience</div></div>
+                        <div class="stat"><div class="stat-number">500+</div><div>Happy Clients</div></div>
+                        <div class="stat"><div class="stat-number">1000+</div><div>Projects Completed</div></div>
+                        <div class="stat"><div class="stat-number">98%</div><div>Client Satisfaction</div></div>
                     </div>
                 </div>
                 <div class="about-image">
-                    <img src="https://images.unsplash.com/photo-1598488035139-bdbb2231ce04?w=600&h=400&fit=crop" alt="Recording Studio" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' width=\'600\' height=\'400\'%3E%3Crect width=\'600\' height=\'400\' fill=\'%2316213e\'/%3E%3Ctext x=\'50%25\' y=\'50%25\' text-anchor=\'middle\' dy=\'.3em\' fill=\'%23ffffff\'%3EStudio Image%3C/text%3E%3C/svg%3E'">
+                    <img src="https://images.unsplash.com/photo-1598488035139-bdbb2231ce04?w=600&h=400&fit=crop" alt="Recording Studio">
                 </div>
             </div>
         </div>
     </section>
 
+    <!-- Portfolio Section -->
     <section id="portfolio" class="portfolio">
         <div class="container">
             <h2 class="section-title">Our Portfolio</h2>
             <p class="section-subtitle">Explore some of our recent projects and productions</p>
             <div class="portfolio-grid">
                 <div class="portfolio-item">
-                    <div class="portfolio-image">
-                        <img src="https://images.unsplash.com/photo-1470225620780-dba8ba36b745?w=400&h=250&fit=crop" alt="Live Concert Recording" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' width=\'400\' height=\'250\'%3E%3Crect width=\'400\' height=\'250\' fill=\'%23e94560\'/%3E%3Ctext x=\'50%25\' y=\'50%25\' text-anchor=\'middle\' dy=\'.3em\' fill=\'%23ffffff\'%3E🎸 Live Concert%3C/text%3E%3C/svg%3E'">
-                    </div>
+                    <div class="portfolio-image"><img src="https://images.unsplash.com/photo-1470225620780-dba8ba36b745?w=400&h=250&fit=crop" alt="Live Concert"></div>
                     <div class="portfolio-info">
                         <div class="portfolio-category">Live Sound</div>
                         <h3>Live Concert Recording</h3>
-                        <button class="btn" onclick="if(!isLoggedIn) { showLoginModal(); } else { alert('Premium content - You need to be logged in to view this project!'); }" style="display: inline-block; margin-top: 1rem; padding: 8px 20px;">View Project</button>
+                        <button class="btn" onclick="if(!isLoggedIn) { showLoginModal(); } else { alert('Viewing Live Concert Recording project details'); }">View Project</button>
                     </div>
                 </div>
                 <div class="portfolio-item">
-                    <div class="portfolio-image">
-                        <img src="https://images.unsplash.com/photo-1590602847861-f357a9332bbc?w=400&h=250&fit=crop" alt="Podcast Studio" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' width=\'400\' height=\'250\'%3E%3Crect width=\'400\' height=\'250\' fill=\'%23e94560\'/%3E%3Ctext x=\'50%25\' y=\'50%25\' text-anchor=\'middle\' dy=\'.3em\' fill=\'%23ffffff\'%3E🎙️ Podcast%3C/text%3E%3C/svg%3E'">
-                    </div>
+                    <div class="portfolio-image"><img src="https://images.unsplash.com/photo-1590602847861-f357a9332bbc?w=400&h=250&fit=crop" alt="Podcast Studio"></div>
                     <div class="portfolio-info">
                         <div class="portfolio-category">Podcast</div>
                         <h3>Podcast Series Production</h3>
-                        <button class="btn" onclick="if(!isLoggedIn) { showLoginModal(); } else { alert('Premium content - You need to be logged in to view this project!'); }" style="display: inline-block; margin-top: 1rem; padding: 8px 20px;">View Project</button>
+                        <button class="btn" onclick="if(!isLoggedIn) { showLoginModal(); } else { alert('Viewing Podcast Series Production details'); }">View Project</button>
                     </div>
                 </div>
                 <div class="portfolio-item">
-                    <div class="portfolio-image">
-                        <img src="https://images.unsplash.com/photo-1511379938547-c1f69419868d?w=400&h=250&fit=crop" alt="Music Production" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' width=\'400\' height=\'250\'%3E%3Crect width=\'400\' height=\'250\' fill=\'%23e94560\'/%3E%3Ctext x=\'50%25\' y=\'50%25\' text-anchor=\'middle\' dy=\'.3em\' fill=\'%23ffffff\'%3E🎵 Album Production%3C/text%3E%3C/svg%3E'">
-                    </div>
+                    <div class="portfolio-image"><img src="https://images.unsplash.com/photo-1511379938547-c1f69419868d?w=400&h=250&fit=crop" alt="Music Production"></div>
                     <div class="portfolio-info">
                         <div class="portfolio-category">Music Production</div>
                         <h3>Album Production & Mixing</h3>
-                        <button class="btn" onclick="if(!isLoggedIn) { showLoginModal(); } else { alert('Premium content - You need to be logged in to view this project!'); }" style="display: inline-block; margin-top: 1rem; padding: 8px 20px;">View Project</button>
-                    </div>
-                </div>
-                <div class="portfolio-item">
-                    <div class="portfolio-image">
-                        <img src="https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=400&h=250&fit=crop" alt="Studio Design" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' width=\'400\' height=\'250\'%3E%3Crect width=\'400\' height=\'250\' fill=\'%23e94560\'/%3E%3Ctext x=\'50%25\' y=\'50%25\' text-anchor=\'middle\' dy=\'.3em\' fill=\'%23ffffff\'%3E🔊 Studio Design%3C/text%3E%3C/svg%3E'">
-                    </div>
-                    <div class="portfolio-info">
-                        <div class="portfolio-category">Acoustic Treatment</div>
-                        <h3>Studio Acoustic Design</h3>
-                        <button class="btn" onclick="if(!isLoggedIn) { showLoginModal(); } else { alert('Premium content - You need to be logged in to view this project!'); }" style="display: inline-block; margin-top: 1rem; padding: 8px 20px;">View Project</button>
+                        <button class="btn" onclick="if(!isLoggedIn) { showLoginModal(); } else { alert('Viewing Album Production details'); }">View Project</button>
                     </div>
                 </div>
             </div>
         </div>
     </section>
 
+    <!-- Contact Section -->
     <section id="contact" class="contact">
         <div class="container">
             <h2 class="section-title">Let's Create Something Amazing</h2>
-            <p class="section-subtitle">Ready to elevate your sound? Get in touch with our team and let's discuss your project.</p>
+            <p class="section-subtitle">Ready to elevate your sound? Get in touch with our team</p>
             <div class="contact-grid">
                 <div class="contact-info">
-                    <div class="contact-item">
-                        <div class="contact-icon">📞</div>
-                        <div>
-                            <strong>Phone</strong><br>
-                            +1 (555) 123-4567
-                        </div>
-                    </div>
-                    <div class="contact-item">
-                        <div class="contact-icon">✉️</div>
-                        <div>
-                            <strong>Email</strong><br>
-                            hello@tasproduction.com
-                        </div>
-                    </div>
-                    <div class="contact-item">
-                        <div class="contact-icon">📍</div>
-                        <div>
-                            <strong>Location</strong><br>
-                            123 Sound Street, Music City, MC 12345
-                        </div>
-                    </div>
-                    <div class="business-hours">
-                        <h3>Business Hours</h3>
-                        <p><strong>Monday - Friday:</strong> 9:00 AM - 8:00 PM</p>
-                        <p><strong>Saturday:</strong> 10:00 AM - 6:00 PM</p>
-                        <p><strong>Sunday:</strong> Closed</p>
-                    </div>
+                    <div class="contact-item"><div class="contact-icon">📞</div><div><strong>Phone</strong><br>+8801723272168</div></div>
+                    <div class="contact-item"><div class="contact-icon">✉️</div><div><strong>Email</strong><br>tazdikayub007@gmail.com</div></div>
+                    <div class="contact-item"><div class="contact-icon">📍</div><div><strong>Location</strong><br>Mohora,Chandgaon,Chittagong</div></div>
+                    <div class="business-hours"><h3>Business Hours</h3><p><strong>Mon-Fri:</strong> 9:00 AM - 8:00 PM<br><strong>Sat:</strong> 10:00 AM - 6:00 PM<br><strong>Sun:</strong> Closed</p></div>
                 </div>
                 <div class="contact-form">
                     <form id="contactForm">
@@ -954,252 +213,6 @@
         <p>&copy; 2024 TAS Production House. All rights reserved. | Professional Sound Management</p>
     </footer>
 
-    <script>
-        // User authentication state
-        let isLoggedIn = false;
-        let currentUser = null;
-
-        // Load users from localStorage
-        let users = JSON.parse(localStorage.getItem('users')) || [];
-
-        // Initialize auth UI
-        function initAuth() {
-            const savedUser = localStorage.getItem('currentUser');
-            if (savedUser) {
-                currentUser = JSON.parse(savedUser);
-                isLoggedIn = true;
-            }
-            updateAuthUI();
-        }
-
-        // Update UI based on auth state
-        function updateAuthUI() {
-            const authSection = document.getElementById('authSection');
-            if (isLoggedIn && currentUser) {
-                authSection.innerHTML = `
-                    <div class="user-info">
-                        <div class="user-avatar">${currentUser.name.charAt(0).toUpperCase()}</div>
-                        <span>Welcome, ${currentUser.name}</span>
-                        <button class="btn-logout" onclick="logout()">Logout</button>
-                    </div>
-                `;
-            } else {
-                authSection.innerHTML = `
-                    <div class="auth-buttons">
-                        <button class="btn-login" onclick="showLoginModal()">Login</button>
-                        <button class="btn-signup" onclick="showSignupModal()">Sign Up</button>
-                    </div>
-                `;
-            }
-        }
-
-        // Show login modal
-        function showLoginModal() {
-            document.getElementById('loginModal').style.display = 'block';
-            document.getElementById('loginError').style.display = 'none';
-            document.getElementById('loginForm').reset();
-        }
-
-        // Show signup modal
-        function showSignupModal() {
-            document.getElementById('signupModal').style.display = 'block';
-            document.getElementById('signupError').style.display = 'none';
-            document.getElementById('signupSuccess').style.display = 'none';
-            document.getElementById('signupForm').reset();
-        }
-
-        // Close modal
-        function closeModal(modalId) {
-            document.getElementById(modalId).style.display = 'none';
-        }
-
-        // Switch to signup from login
-        function switchToSignup() {
-            closeModal('loginModal');
-            showSignupModal();
-        }
-
-        // Switch to login from signup
-        function switchToLogin() {
-            closeModal('signupModal');
-            showLoginModal();
-        }
-
-        // Handle login
-        document.getElementById('loginForm').addEventListener('submit', function(e) {
-            e.preventDefault();
-            const email = document.getElementById('loginEmail').value;
-            const password = document.getElementById('loginPassword').value;
-
-            const user = users.find(u => u.email === email && u.password === password);
-            
-            if (user) {
-                isLoggedIn = true;
-                currentUser = user;
-                localStorage.setItem('currentUser', JSON.stringify(user));
-                updateAuthUI();
-                closeModal('loginModal');
-                showNotification('Login successful! Welcome back!', 'success');
-            } else {
-                const errorDiv = document.getElementById('loginError');
-                errorDiv.textContent = 'Invalid email or password. Please try again.';
-                errorDiv.style.display = 'block';
-            }
-        });
-
-        // Handle signup
-        document.getElementById('signupForm').addEventListener('submit', function(e) {
-            e.preventDefault();
-            const name = document.getElementById('signupName').value;
-            const email = document.getElementById('signupEmail').value;
-            const password = document.getElementById('signupPassword').value;
-            const confirmPassword = document.getElementById('signupConfirmPassword').value;
-
-            // Validation
-            if (password.length < 6) {
-                showSignupError('Password must be at least 6 characters long.');
-                return;
-            }
-
-            if (password !== confirmPassword) {
-                showSignupError('Passwords do not match.');
-                return;
-            }
-
-            // Check if user already exists
-            if (users.find(u => u.email === email)) {
-                showSignupError('Email already registered. Please login instead.');
-                return;
-            }
-
-            // Create new user
-            const newUser = {
-                id: Date.now(),
-                name: name,
-                email: email,
-                password: password,
-                createdAt: new Date().toISOString()
-            };
-
-            users.push(newUser);
-            localStorage.setItem('users', JSON.stringify(users));
-            
-            showSignupSuccess('Account created successfully! Please login.');
-            
-            // Clear form and switch to login after 2 seconds
-            setTimeout(() => {
-                closeModal('signupModal');
-                showLoginModal();
-            }, 2000);
-        });
-
-        function showSignupError(message) {
-            const errorDiv = document.getElementById('signupError');
-            errorDiv.textContent = message;
-            errorDiv.style.display = 'block';
-            setTimeout(() => {
-                errorDiv.style.display = 'none';
-            }, 3000);
-        }
-
-        function showSignupSuccess(message) {
-            const successDiv = document.getElementById('signupSuccess');
-            successDiv.textContent = message;
-            successDiv.style.display = 'block';
-            setTimeout(() => {
-                successDiv.style.display = 'none';
-            }, 2000);
-        }
-
-        // Logout function
-        function logout() {
-            isLoggedIn = false;
-            currentUser = null;
-            localStorage.removeItem('currentUser');
-            updateAuthUI();
-            showNotification('You have been logged out successfully.', 'info');
-        }
-
-        // Show notification
-        function showNotification(message, type) {
-            // Create notification element
-            const notification = document.createElement('div');
-            notification.textContent = message;
-            notification.style.cssText = `
-                position: fixed;
-                top: 80px;
-                right: 20px;
-                padding: 15px 25px;
-                background: ${type === 'success' ? '#28a745' : '#17a2b8'};
-                color: white;
-                border-radius: 8px;
-                z-index: 2000;
-                animation: slideIn 0.3s ease;
-                box-shadow: 0 5px 15px rgba(0,0,0,0.2);
-            `;
-            document.body.appendChild(notification);
-            
-            setTimeout(() => {
-                notification.style.animation = 'fadeIn 0.3s reverse';
-                setTimeout(() => notification.remove(), 300);
-            }, 3000);
-        }
-
-        // Scroll to section
-        function scrollToSection(sectionId) {
-            const section = document.getElementById(sectionId);
-            if (section) {
-                const headerOffset = 80;
-                const elementPosition = section.offsetTop;
-                const offsetPosition = elementPosition - headerOffset;
-                
-                window.scrollTo({
-                    top: offsetPosition,
-                    behavior: 'smooth'
-                });
-            }
-        }
-
-        // Handle contact form submission
-        document.getElementById('contactForm').addEventListener('submit', function(e) {
-            e.preventDefault();
-            
-            if (!isLoggedIn) {
-                showNotification('Please login to send messages!', 'info');
-                showLoginModal();
-                return;
-            }
-            
-            const name = document.getElementById('contactName').value;
-            const email = document.getElementById('contactEmail').value;
-            const subject = document.getElementById('contactSubject').value;
-            const message = document.getElementById('contactMessage').value;
-            
-            if (!name || !email || !subject || !message) {
-                alert('Please fill in all fields.');
-                return;
-            }
-            
-            // Email validation
-            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-            if (!emailRegex.test(email)) {
-                alert('Please enter a valid email address.');
-                return;
-            }
-            
-            showNotification(`Thank you ${name}! Your message has been sent. We'll get back to you soon.`, 'success');
-            this.reset();
-        });
-
-        // Close modals when clicking outside
-        window.onclick = function(event) {
-            if (event.target.classList.contains('modal')) {
-                event.target.style.display = 'none';
-            }
-        }
-
-        // Initialize on page load
-        initAuth();
-    </script>
+    <script src="script.js"></script>
 </body>
 </html>
